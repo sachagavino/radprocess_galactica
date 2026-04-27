@@ -1,6 +1,6 @@
 # Galactica — RAMSES → RADMC-3D / POLARIS Post-Processing Pipeline
 
-Galactica is a pipeline for post-processing [RAMSES](https://bitbucket.org/rteyssie/ramses) MHD simulation outputs to produce synthetic dust-continuum images. It uses [RADMC-3D](https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/) to compute the dust temperature via Monte Carlo radiative transfer (mctherm), and [POLARIS](https://portia.astrophysik.uni-kiel.de/polaris/) to generate the final synthetic observations. The two codes share a common set of dust opacities: POLARIS generates the opacity table first, which is then converted into the RADMC-3D format so that both codes operate on exactly the same dust model.
+Radprocess is a pipeline for post-processing [RAMSES](https://bitbucket.org/rteyssie/ramses) MHD simulation outputs to produce synthetic dust-continuum images. It uses [RADMC-3D](https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/) to compute the dust temperature via Monte Carlo radiative transfer (mctherm), and [POLARIS](https://portia.astrophysik.uni-kiel.de/polaris/) to generate the final synthetic observations. The two codes share a common set of dust opacities: POLARIS generates the opacity table first, which is then converted into the RADMC-3D format so that both codes operate on exactly the same dust model.
 
 ---
 
