@@ -1,3 +1,5 @@
+import subprocess
+
 for script in [
     "update_pymsesrc.py",
     "create_polaris_grid.py",
