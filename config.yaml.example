@@ -1,0 +1,120 @@
+# config.yaml.example
+# Copy this file to config.yaml and fill in the paths and parameters
+# for your simulation before running the pipeline.
+
+# ──────────────────────────────────────────────────────────────────────────────
+# RAMSES output
+# Path to the specific RAMSES output directory to post-process.
+# The output number is inferred automatically from the directory name
+# (e.g. "output_00013" → output number 13).
+# ──────────────────────────────────────────────────────────────────────────────
+ramses_output_dir: /path/to/ramses/outputs/output_00013
+
+# Path to the PyMSES configuration file (.pymsesrc).
+# update_pymsesrc.py will patch this file with the dust field descriptors
+# found in the RAMSES hydro descriptor.
+pymsesrc_path: /path/to/.pymsesrc
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Grid conversion  (Steps 2 & 3)
+# ──────────────────────────────────────────────────────────────────────────────
+grid_conversion:
+  polaris:
+    # Directory where the POLARIS binary octree grid will be written.
+    output_path: /path/to/polaris/grid/
+
+  radmc3d:
+    # Directory where amr_grid.inp and dust_density.inp will be written.
+    output_path: /path/to/radmc3d/grid/
+
+# ──────────────────────────────────────────────────────────────────────────────
+# POLARIS opacity run  (Step 4)
+# POLARIS is run once with a single photon package to generate the dust
+# opacity tables that will be shared with RADMC-3D.
+# ──────────────────────────────────────────────────────────────────────────────
+polaris_opacity_run:
+  # Working directory for the POLARIS opacity run; .cmd file and output
+  # subdirectory (data/) will be created here.
+  output_path: /path/to/polaris/opacity_run/
+
+  # Directory containing the POLARIS octree grid file produced in Step 2.
+  grid_input_dir: /path/to/polaris/grid/
+
+  # Dust optical properties files.
+  # dust_nk_path  : refractive-index file (used when a single component is
+  #                 needed, e.g. for dust-free simulations).
+  # dust_cs_path  : list of two cross-section files used when the simulation
+  #                 has dust (e.g. silicate and carbonaceous grains).
+  dust_nk_path: /path/to/polaris/dust/silicate.nk
+  dust_cs_path:
+    - /path/to/polaris/dust/silicate.cs
+    - /path/to/polaris/dust/carbon.cs
+
+  # Grain size distribution parameters (SI units: metres).
+  dust_size_min: 5.0e-9      # minimum grain radius [m]
+  dust_size_max: 2.5e-7      # maximum grain radius [m]
+  dust_size_powerlaw: -3.5   # MRN power-law index
+
+  # Gas/dust mixture parameters.
+  mean_molecular_weight: 2.37   # mu (dimensionless)
+  mass_fraction: 0.01           # dust-to-gas mass fraction
+
+  # Number of OpenMP threads for POLARIS.
+  nr_threads: 8
+
+# ──────────────────────────────────────────────────────────────────────────────
+# RADMC-3D input preparation  (Step 5)
+# ──────────────────────────────────────────────────────────────────────────────
+radmc3d_setup:
+  # Directory where all RADMC-3D input files will be written
+  # (dustkappa_*.inp, dustopac.inp, wavelength_micron.inp, stars.inp,
+  #  radmc3d.inp).
+  radmc3d_input_dir: /path/to/radmc3d/inputs/
+
+  # Directory of the POLARIS opacity run; the script reads
+  # <polaris_data_input_dir>/data/dust_mixture_*.dat from here.
+  polaris_data_input_dir: /path/to/polaris/opacity_run/
+
+  # Wavelength grid for RADMC-3D (optional — defaults shown).
+  wavelength_min_micron: 0.27   # default: 0.27 µm
+  wavelength_max_micron: 3000   # default: 3000 µm
+  n_wavelengths: 200            # default: 200 log-spaced points
+
+  # Monte Carlo settings (optional — defaults shown).
+  n_photons_mctherm: 1000000    # photon packages for mctherm
+  setthreads: 8                 # OpenMP threads for RADMC-3D
+
+# ──────────────────────────────────────────────────────────────────────────────
+# RADMC-3D mctherm run  (Step 6)
+# ──────────────────────────────────────────────────────────────────────────────
+radmc3d_run:
+  # Directory from which `radmc3d mctherm` is executed; must contain all
+  # files written by radmc3d_setup above plus the grid files from Step 3.
+  run_directory: /path/to/radmc3d/inputs/
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Final image rendering  (Step 8)
+# ──────────────────────────────────────────────────────────────────────────────
+final_image_rendering:
+  # Projection planes to render.
+  views:
+    - xy
+    - xz
+    - yz
+
+  # Base output directory; sub-directories inner/ and whole/ are created
+  # automatically by each rendering script.
+  output_base_path: /path/to/output/images/
+
+  # Image parameters.
+  npix: 512            # pixel resolution (npix × npix)
+  distance_pc: 140.0   # source distance [pc]
+
+  # Wavelengths to image [mm]; one image is produced per wavelength per view.
+  wavelength_mm:
+    - 0.87    # Band 7  (~345 GHz)
+    - 1.3     # Band 6  (~230 GHz)
+    - 3.0     # Band 3  (~100 GHz)
+
+  # Number of OpenMP threads for the POLARIS imaging run.
+  nr_threads: 8

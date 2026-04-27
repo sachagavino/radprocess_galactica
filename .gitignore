@@ -1,0 +1,14 @@
+# RAMSES / POLARIS / RADMC-3D outputs
+*.dat
+*.bdat
+*.inp
+*.out
+*.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Config with local paths (keep a config.yaml.example instead)
+config.yaml
