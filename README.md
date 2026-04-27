@@ -8,50 +8,50 @@ Galactica is a pipeline for post-processing [RAMSES](https://bitbucket.org/rteys
 
 ```mermaid
 flowchart TD
-    RAMSES[("RAMSES outputs\nAMR data · sink file\nhydro descriptor")]:::input
+    RAMSES[("RAMSES outputs\nAMR data / sink file\nhydro descriptor")]:::input
 
-    subgraph s1["Step 1 — Setup"]
+    subgraph s1["Step 1 - Setup"]
         upd["update_pymsesrc.py"]
-        pymsesrc["`.pymsesrc`\ndust field config"]:::file
+        pymsesrc[".pymsesrc\ndust field config"]:::file
         upd --> pymsesrc
     end
 
-    subgraph s23["Steps 2 & 3 — Grid conversion"]
+    subgraph s23["Steps 2 and 3 - Grid conversion"]
         cpg["create_polaris_grid.py"]
         crg["create_radmc3d_grid.py"]
-        pgrid["`ramses_grid_XXXXX.dat`\nPOLARIS octree"]:::file
-        rgrid["`amr_grid.inp`\n`dust_density.inp`"]:::file
+        pgrid["ramses_grid_XXXXX.dat\nPOLARIS octree"]:::file
+        rgrid["amr_grid.inp\ndust_density.inp"]:::file
         cpg --> pgrid
         crg --> rgrid
     end
 
-    subgraph s45["Steps 4 & 5 — Opacity bootstrap"]
-        rpo["run_polaris_opacity.py\n(POLARIS · 1 photon pkg)"]
+    subgraph s45["Steps 4 and 5 - Opacity bootstrap"]
+        rpo["run_polaris_opacity.py\nPOLARIS - 1 photon pkg"]
         prdi["prepare_radmc3d_inputs.py"]
-        dmix["`dust_mixture_*.dat`\nPOLARIS opacity tables"]:::file
-        rinputs["`dustkappa_*.inp`  `dustopac.inp`\n`wavelength_micron.inp`\n`stars.inp`  `radmc3d.inp`"]:::file
+        dmix["dust_mixture_*.dat\nPOLARIS opacity tables"]:::file
+        rinputs["dustkappa_*.inp  dustopac.inp\nwavelength_micron.inp\nstars.inp  radmc3d.inp"]:::file
         rpo --> dmix
         dmix --> prdi
         prdi --> rinputs
     end
 
-    subgraph s6["Step 6 — Dust temperature"]
-        rmc["run_radmc3d_mctherm.py\n(RADMC-3D mctherm)"]
-        dtemp["`dust_temperature.bdat`"]:::file
+    subgraph s6["Step 6 - Dust temperature"]
+        rmc["run_radmc3d_mctherm.py\nRADMC-3D mctherm"]
+        dtemp["dust_temperature.bdat"]:::file
         rmc --> dtemp
     end
 
-    subgraph s7["Step 7 — Temperature merge"]
+    subgraph s7["Step 7 - Temperature merge"]
         mt["merge_temperature.py"]
-        mgrid["`grid_temp.radmc3d.dat`\nPOLARIS grid + RADMC-3D temperatures"]:::file
+        mgrid["grid_temp.radmc3d.dat\nPOLARIS grid + RADMC-3D temperatures"]:::file
         mt --> mgrid
     end
 
-    subgraph s8["Step 8 — Synthetic imaging"]
+    subgraph s8["Step 8 - Synthetic imaging"]
         ri["render_final_images.inner.py"]
         rw["render_final_images.whole.py"]
-        inner["`inner/`\nzoomed images"]:::output
-        whole["`whole/`\nfull-box images"]:::output
+        inner["inner/\nzoomed images"]:::output
+        whole["whole/\nfull-box images"]:::output
         ri --> inner
         rw --> whole
     end
