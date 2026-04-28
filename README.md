@@ -97,7 +97,7 @@ Requires **Python 3.12**.
 | [NumPy](https://numpy.org/) | 2.2.2 | Array operations and binary I/O |
 | [Cython](https://cython.org/) | 3.1.6 | Build dependency required to compile PyMSES |
 | [Matplotlib](https://matplotlib.org/) | — | Plotting utilities |
-| [PyMSES](https://irfu.cea.fr/Projets/PYMSES/) | — | Reading RAMSES AMR outputs |
+| [PyMSES](https://irfu.cea.fr/Projets/PYMSES/) | Python3.12 | Reading RAMSES AMR outputs |
 | [Astropy](https://www.astropy.org/) | — | Physical constants and unit conversions |
 | [PyYAML](https://pyyaml.org/) | — | Reading the `config.yaml` configuration file |
 
