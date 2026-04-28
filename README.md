@@ -88,14 +88,18 @@ The key design choice is to let **POLARIS** generate the dust opacities first us
 | [RADMC-3D](https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/) | Dust temperature Monte Carlo (mctherm) |
 | [POLARIS](https://portia.astrophysik.uni-kiel.de/polaris/) | Dust opacity generation and synthetic imaging |
 
-### Python packages
+### Python environment
 
-| Package | Purpose |
-|---------|---------|
-| [PyMSES](https://irfu.cea.fr/Projets/PYMSES/) | Reading RAMSES AMR outputs |
-| [NumPy](https://numpy.org/) | Array operations and binary I/O |
-| [Astropy](https://www.astropy.org/) | Physical constants and unit conversions |
-| [PyYAML](https://pyyaml.org/) | Reading the `config.yaml` configuration file |
+Requires **Python 3.12**.
+
+| Package | Version | Purpose |
+|---------|---------|---------|
+| [NumPy](https://numpy.org/) | 2.2.2 | Array operations and binary I/O |
+| [Cython](https://cython.org/) | 3.1.6 | Build dependency required to compile PyMSES |
+| [Matplotlib](https://matplotlib.org/) | — | Plotting utilities |
+| [PyMSES](https://irfu.cea.fr/Projets/PYMSES/) | — | Reading RAMSES AMR outputs |
+| [Astropy](https://www.astropy.org/) | — | Physical constants and unit conversions |
+| [PyYAML](https://pyyaml.org/) | — | Reading the `config.yaml` configuration file |
 
 ---
 
