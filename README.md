@@ -90,13 +90,12 @@ The key design choice is to let **POLARIS** generate the dust opacities first us
 
 ### Python environment
 
-Requires **Python 3.10**.
+Requires **Python 3.10.16**.
 
 | Package | Version | Purpose |
 |---------|---------|---------|
 | [NumPy](https://numpy.org/) | 1.26.4 | Array operations and binary I/O |
 | [Cython](https://cython.org/) | 3.0.11 | Build dependency required to compile PyMSES |
-| [Matplotlib](https://matplotlib.org/) | 3.10.0 | Plotting utilities |
 | [PyMSES](https://irfu.cea.fr/Projets/PYMSES/) | — | Reading RAMSES AMR outputs |
 | [Astropy](https://www.astropy.org/) | 6.1.3 | Physical constants and unit conversions |
 | [PyYAML](https://pyyaml.org/) | 6.0.2 | Reading the `config.yaml` configuration file |
