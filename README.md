@@ -98,7 +98,7 @@ Requires **Python 3.12**.
 | [Cython](https://cython.org/) | 3.1.6 | Build dependency required to compile PyMSES |
 | [Matplotlib](https://matplotlib.org/) | — | Plotting utilities |
 | [PyMSES](https://irfu.cea.fr/Projets/PYMSES/) | — | Reading RAMSES AMR outputs |
-| [Astropy](https://www.astropy.org/) | — | Physical constants and unit conversions |
+| [Astropy](https://www.astropy.org/) | 6.1.3 | Physical constants and unit conversions |
 | [PyYAML](https://pyyaml.org/) | — | Reading the `config.yaml` configuration file |
 
 ---
